@@ -1,0 +1,202 @@
+A. Project Overview
+=> This project is a simplified front-page clone of the LiveHindustan website built using Next.js and Tailwind CSS.
+The main goal of the assignment was to demonstrate:
+    1. Front-end layout design similar to a real media portal
+    2. Dynamic data fetching from an API
+    3. Proper use of Next.js features
+    4. Responsiveness and SEO practices
+    5. Error handling and graceful fallbacks
+
+Although it is not a pixel-perfect clone, the structure and behavior closely resemble a real-world news website.
+=> Assignment Mapping
+
+| Part              | Status        |
+| ----------------- | ------------- |
+| Layout & UI       |   Completed   |
+| Next.js Features  |   Completed   |
+| Responsiveness    |   Completed   |
+| SEO               |   Implemented |
+| Edge Cases        |   Handled     |
+| AI Use Reflection |   Documented  |
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+B. Design Document
+
+2.0 
+    Sketch added : sketch.jpg
+    Screenshots added:news_clone_livehindustan\screenshot
+
+2.1 Layout Decisions
+=> I designed the layout based on the structure of the LiveHindustan homepage:
+
+i. Header
+    Two rows
+        Top row: hamburger menu, logo, search and utility icons
+        Second row: horizontal navigation bar (sticky)
+
+ii. Main Content Area
+    Two-column layout (on large screens)
+        Left (75%) → Main content with multiple categories
+            Each category has:
+                1 large hero (main article)
+                3–4 smaller articles beside it
+            Advertisement banners between each category section
+
+        Right (25%) → “Latest Updates” section
+
+iii. Footer
+    Multiple horizontal rows of links
+    Partner sites section
+    Copyright section
+
+This structure matches the visual hierarchy of a real news portal and highlights the most important news first.
+
+2.2 Why Two Columns?
+
+    i. The left column emphasizes important/featured articles
+    ii. The right column provides quick access to latest news
+    
+This is standard for large news websites and improves readability
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+C. Data Fetching Strategy
+=> I used Next.js getStaticProps with Incremental Static Regeneration (ISR).
+
+Q) Why getStaticProps + ISR?
+Ans) I chose this instead of getServerSideProps because:
+
+    i. The page is very fast since it is statically generated
+    ii. It still stays fresh due to revalidate
+    iii. It reduces unnecessary API calls
+    iv. It is more scalable for a media website
+    v. ISR (revalidate: 600) = Page updates every 10 minutes
+
+I used two API endpoints for variety:
+
+1. /v2/everything for featured sections
+2. /v2/top-headlines for sidebar and breaking-style content
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+D. Components Created
+    I structured the project into reusable components:
+
+| Component              | Purpose                              |
+| ---------------------- | ------------------------------------ |
+|  Navbar.js             | Top navigation, sticky secondary row |
+|  NewsCard.js           | Single article card                  |
+|  CategorySection.js    | Section with hero + side list        |
+|  AdBanner.js           | Advertisement placeholder            |
+|  Footer.js             | Large footer with multiple rows      |
+|  pages/index.js        | Main homepage layout                 |
+|  pages/news/[slug].js  | Dynamic article page                 |
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+E. Data Model
+=> Each article follows a simple, consistent structure:
+    {
+    "id": 1,
+    "slug": "sample-article",
+    "title": "Some news title",
+    "category": "Technology",
+    "image": "url",
+    "excerpt": "Short summary",
+    "content": "Full content",
+    "publishedAt": "2025-11-25",
+    "sourceUrl": "original source"
+    }
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+F. Edge Case Handling
+=> The following edge cases were handled properly:
+
+1. Missing Image
+If an article has no image, a placeholder is used:
+    const fallbackImage = "https://placehold.co/600x400?text=No+Image";
+
+Result: No broken UI even when images are missing.
+
+2. No Articles Returned
+If API returns an empty array, the following message is displayed:
+    No news available 
+    Please try again later.
+
+This avoids crashes and makes the experience user-friendly.
+
+3. Long Titles
+Tailwind’s line-clamp is used:
+    line-clamp-2
+    line-clamp-3
+
+This prevents layout breaking and keeps UI clean.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+G. Challenges Faced
+
+Problem 1 – Next.js Image Domain Errors
+    Images from NewsAPI came from random domains.
+    Solution: 
+        Updated next.config.js to allow all external domains.
+
+Problem 2 – Dynamic Routing Bugs
+    Initially, slug matching failed because different API endpoints returned different structures.
+    Solution:
+        Created createSlug() function
+        Used consistent slug generation
+
+Problem 3 – Sticky Navbar function
+    The full header was sticky initially.
+    Solution: 
+        Split into separate rows and made only the second row sticky.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+H. AI Usage + Reflection (Part D)
+=> I used AI (ChatGPT) for:
+
+ Initial component structure
+ Layout ideas
+ Sample code snippets
+ Error debugging
+ Tailwind class suggestions
+
+However, I did NOT blindly copy everything.
+
+=> Where AI suggestions were wrong / suboptimal
+    1. Some Tailwind layouts were grid-based instead of row-based (not matching LiveHindustan)
+
+=> How I solved / corrected this
+    1. Read Next.js and Tailwind documentation
+    2. Changed grid layout to flex rows
+    3. Fixed data structure mismatches
+    4. Added my own logic for slicing articles and ordering sections
+
+So final implementation is a mix of AI help + my own decisions + debugging + architecture design.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+I. What I Would Improve If Given More Time?
+    1. Real category-wise APIs (sports, business, state-wise news)
+    2. Search functionality integration
+    3. Better SEO microdata for all articles
+    4. Lazy loading for images
+    5. Dark mode
+    6. Admin panel for managing articles
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+
+J. Conclusion
+=> This assignment helped me understand:
+    1. How real-world news websites are structured
+    2. How Next.js handles data fetching, routing, and optimization
+    3. How to design reusable components
+    4. How to manage edge cases and fallback UI
+    5. How to effectively use AI for error solving without depending on it blindly
+
+It was a very practical and challenging project that improved both my frontend and problem-solving skills.
+
+-----------------------------------------------------------------------------------------------------------------------------------------
