@@ -1,6 +1,6 @@
 # Hindustan News Clone – Next.js Assignment
 
-A simplified front-page clone of *LiveHindustan, built using **Next.js + Tailwind CSS + NewsAPI*.
+A simplified front-page clone of *LiveHindustan*, built using **Next.js + Tailwind CSS + NewsAPI**.
 This project demonstrates server-side data fetching, dynamic routing, image optimization, responsive UI, and graceful error handling.
 
 ---
