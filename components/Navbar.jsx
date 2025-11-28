@@ -19,7 +19,7 @@ const mainLinks = [
   { label: "Entertainment", href: "/entertainment" },
   { label: "Business", href: "/business" },
   { label: "Career", href: "/career" },
-  { label: "World", href: "/" },
+  { label: "World", href: "/world" },
   { label: "Religion", href: "/religion" },
   { label: "Horoscope", href: "/" },
   { label: "Lifestyle", href: "/lifestyle" },
@@ -34,12 +34,12 @@ export default function Navbar() {
     <>
       {/* TOP ROW (NOT STICKY) */}
       <div className="bg-white border-b border-gray-200">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-6">
+        <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-8">
           {/* Hamburger */}
           <button
             type="button"
             onClick={() => setIsMenuOpen(true)}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-gray-300"
+            className="flex h-9 w-9 items-center justify-center cursor-pointer rounded-full border border-gray-300"
             aria-label="Open menu"
           >
             <FiMenu className="text-lg text-gray-700" />
@@ -47,56 +47,58 @@ export default function Navbar() {
 
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-10 w-10 text-xl items-center justify-center rounded-full border border-red-700 text-red-700 font-extrabold">
+            <div className="flex h-11 w-11 text-2xl items-center justify-center rounded-full border border-red-700 text-red-700 font-extrabold">
               हि
             </div>
-            <span className="text-4xl font-extrabold text-red-700 tracking-tight">
+            <span className="text-5xl font-extrabold text-red-700 tracking-tight">
               हिन्दुस्तान
             </span>
           </Link>
 
           {/* Right actions (desktop only) */}
-          <div className="ml-auto hidden items-center gap-5 text-sm text-red-700 md:flex">
-            <button className="flex items-center gap-1 hover:text-red-800">
-              <FaRegImage />
-              <span>Photos</span>
-            </button>
-            <span className="text-gray-500 text-xl"> | </span>
-            <button className="flex items-center gap-1 hover:text-red-800">
-              <FaRegPlayCircle />
-              <span>Videos</span>
-            </button>
-            <span className="text-gray-500 text-xl"> | </span>
-            <button className="flex items-center gap-1 hover:text-red-800">
-              <FaMapMarkerAlt />
-              <span>Select City</span>
-            </button>
-            <span className="text-gray-500 text-xl"> | </span>
-            <button className="flex items-center gap-1 hover:text-red-800">
-              <FaRegNewspaper />
-              <span>E-Paper</span>
-            </button>
-            <span className="text-gray-500 text-xl"> | </span>
-            <button className="flex items-center gap-1 hover:text-red-800">
-              <FaUser />
-              <span>Sign In</span>
-            </button>
-          </div>
+          <div className=" ml-auto items-center gap-5 hidden md:flex-col sm:flex lg:flex-row">
+            <div className="ml-auto hidden items-center gap-5 text-md text-red-700 md:flex">
+              <button className="flex items-center gap-1 hover:text-red-800">
+                <FaRegImage />
+                <span>Photos</span>
+              </button>
+              <span className="text-gray-500 text-xl"> | </span>
+              <button className="flex items-center gap-1 hover:text-red-800">
+                <FaRegPlayCircle />
+                <span>Videos</span>
+              </button>
+              <span className="text-gray-500 text-xl"> | </span>
+              <button className="flex items-center gap-1 hover:text-red-800">
+                <FaMapMarkerAlt />
+                <span>Select City</span>
+              </button>
+              <span className="text-gray-500 text-xl"> | </span>
+              <button className="flex items-center gap-1 hover:text-red-800">
+                <FaRegNewspaper />
+                <span>E-Paper</span>
+              </button>
+              <span className="text-gray-500 text-xl"> | </span>
+              <button className="flex items-center gap-1 hover:text-red-800">
+                <FaUser />
+                <span>Sign In</span>
+              </button>
+            </div>
 
-          {/* Search (desktop) */}
-          <div className="hidden items-center rounded-full border border-gray-300 px-3 py-1 text-sm md:flex">
-            <input
-              className="w-40 bg-transparent text-gray-700 outline-none placeholder:text-gray-400"
-              placeholder="Search here"
-            />
-            <FiSearch className="ml-2 text-gray-500" />
+            {/* Search (desktop) */}
+            <div className="hidden items-center rounded-full mx-auto border border-gray-300 px-3 py-1 text-sm md:flex">
+              <input
+                className="w-40 bg-transparent text-gray-700 outline-none placeholder:text-gray-400"
+                placeholder="Search here"
+              />
+              <FiSearch className="ml-2 text-gray-500" />
+            </div>
           </div>
         </div>
       </div>
 
       {/* STICKY NAV ROW ONLY */}
       <nav className="sticky top-0 z-40 bg-white border-b border-gray-200">
-        <div className="mx-auto flex max-w-6xl items-center gap-6 overflow-x-auto px-4 py-2 text-sm">
+        <div className="mx-auto flex max-w-7xl items-center gap-6 overflow-x-auto px-4 py-2 font-normal text-lg">
           {mainLinks.map((link) => (
             <Link
               key={link.label}
@@ -111,11 +113,13 @@ export default function Navbar() {
             </Link>
           ))}
 
-          <span className="ml-auto hidden text-gray-500 md:inline">...</span>
+          <span className="mr-auto hidden text-gray-500 md:inline md:text-lg md:font-bold">
+            ...
+          </span>
         </div>
       </nav>
 
-      {/* MOBILE / DESKTOP SLIDE-OUT MENU (overlay) */}
+      {/* MOBILE / DESKTOP SLIDE-OUT MENU FOR HAMBURGER (overlay) */}
       {isMenuOpen && (
         <div
           className="fixed inset-0 z-50 bg-black/40 overflow-y-auto"
